@@ -1,3 +1,5 @@
+import fs from "fs";
+
 const fetch = (...args) =>
   import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
@@ -21,13 +23,22 @@ async function getMarketData() {
 
   return data;
 }
-
+function loadPreviousData() {
+  try {
+    const raw = fs.readFileSync("previous.json", "utf-8");
+    return JSON.parse(raw);
+  } catch (err) {
+    return {};
+  }
+}
 async function analyzeMomentum() {
-  const data = await getMarketData();
+const previous = loadPreviousData();
 
-  const sorted = data.sort(
-    (a, b) => b.price_change_percentage_24h - a.price_change_percentage_24h
-  );
+const data = await getMarketData();
+
+const sorted = [...data].sort(
+(a, b) => b.price_change_percentage_24h - a.price_change_percentage_24h
+);
 
   console.log("📈 Top ganadoras 24h:");
   sorted.slice(0, 3).forEach((coin) => {
@@ -48,9 +59,38 @@ if (losers.length === 0) {
     console.log(
       `${coin.name}: ${coin.price_change_percentage_24h.toFixed(2)}%`
     );
+    
   });
 }
+// 3️⃣ CAMBIOS DE MOMENTUM (ESTO VA AFUERA)
+console.log("\n🚨 Cambios de momentum:");
 
+let foundChanges = false;
+
+data.forEach((coin) => {
+  const prev = previous[coin.id];
+  const now = coin.price_change_percentage_24h;
+
+  if (prev !== undefined) {
+    if (prev < 0 && now > 0) {
+      console.log(
+        `⬆️ ${coin.name} pasó de ${prev.toFixed(2)}% a ${now.toFixed(2)}%`
+      );
+      foundChanges = true;
+    }
+
+    if (prev > 0 && now < 0) {
+      console.log(
+        `⬇️ ${coin.name} pasó de ${prev.toFixed(2)}% a ${now.toFixed(2)}%`
+      );
+      foundChanges = true;
+    }
+  }
+});
+
+if (!foundChanges) {
+  console.log("Sin cambios relevantes desde la última ejecución.");
+}
 }
 
 analyzeMomentum();
