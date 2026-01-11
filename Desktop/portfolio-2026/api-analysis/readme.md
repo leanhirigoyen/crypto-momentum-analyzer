@@ -1,23 +1,21 @@
-1️⃣ Título
-# Crypto Momentum Analyzer
+1️⃣ Title
 
-2️⃣ Qué es
-Script en Node.js que consume la API de CoinGecko para analizar el momentum de criptomonedas en las últimas 24 horas.
+Crypto Momentum Analyzer
+2️⃣ What it is: A Node.js script that uses the CoinGecko API to analyze cryptocurrency momentum over the last 24 hours.
 
-3️⃣ Qué hace
-- Obtiene datos de mercado de varias criptomonedas
-- Muestra las 3 monedas con mayor suba en 24h
-- Muestra las 3 monedas con mayor caída en 24h (si existen)
-- Detecta cambios de momentum entre ejecuciones
+3️⃣ What it does:
 
-4️⃣ Cómo se usa
-1. Instalar dependencias
-   npm install
+Retrieves market data for various cryptocurrencies.
+Displays the 3 coins with the biggest gains in 24 hours.
+Displays the 3 coins with the biggest drops in 24 hours (if any).
+Detects momentum changes between runs.
+4️⃣ How to use it:
 
-2. Ejecutar el script
-   node index.js
+Install dependencies: `npm install`
 
-## Próximos pasos
-- Persistir datos históricos para analizar tendencias
-- Exponer el análisis como una API REST
-- Integrar alertas automáticas por cambios de momentum
+Run the script: `node index.js`
+
+Next steps:
+Persist historical data to analyze trends.
+Expose the analysis as a REST API.
+Integrate automatic alerts for momentum changes.
