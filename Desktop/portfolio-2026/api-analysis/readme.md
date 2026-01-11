@@ -14,4 +14,7 @@ Install dependencies: npm install
 
 Run the script: node index.js
 
-Next steps: Persist historical data to analyze trends. Expose the analysis as a REST API. Integrate automatic alerts for momentum changes.
+Next steps: 
+- Persist historical data to analyze trends. 
+- Expose the analysis as a REST API. 
+- Integrate automatic alerts for momentum changes.
